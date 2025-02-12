@@ -19,7 +19,8 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.statics.login = async function (email, password) {
+{
+  /*userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email }); // ✅ Correct usage of 'this'
 
   if (!user) {
@@ -33,6 +34,20 @@ userSchema.statics.login = async function (email, password) {
   }
 
   return user; // ✅ Return user if authentication is successful
+};
+*/
+}
+
+userSchema.statics.login = async function (email, password) {
+  const user = await this.findOne({ email });
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    }
+    throw Error("incorrect password");
+  }
+  throw Error("incorrect email");
 };
 
 const User = mongoose.model("User", userSchema);
