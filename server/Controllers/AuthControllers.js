@@ -40,7 +40,6 @@ const register = async (req, res, next) => {
     const token = createToken(user._id);
 
     res.cookie("jwt", token, {
-      withCredentials: true,
       httpOnly: true,
       maxAge: maxAge * 1000,
     });

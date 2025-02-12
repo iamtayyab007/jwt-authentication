@@ -3,10 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 export default function Register() {
-  const [values, setValues] = useState({ email: "", password: "" });
+  const [cookies] = useCookies(["cookie-name"]);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (cookies.jwt) {
+      navigate("/");
+    }
+  }, [cookies, navigate]);
+
+  const [values, setValues] = useState({ email: "", password: "" });
+
   const generateError = (error) => {
     console.log(error);
     toast.error(error, {

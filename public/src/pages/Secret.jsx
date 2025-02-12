@@ -6,7 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Secret() {
-  const navigate = useNavigate("/");
+  const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies([]);
 
   useEffect(() => {
@@ -33,14 +33,14 @@ export default function Secret() {
   }, [cookies, navigate, removeCookie]);
   const handleClick = () => {
     removeCookie("jwt");
-    navigate("/login");
+    navigate("/register");
   };
   return (
     <>
       <div className="private">
-        <ToastContainer />
         <h1>Super secret Page</h1>
         <button onClick={handleClick}>Log Out</button>
+        <ToastContainer />
       </div>
     </>
   );

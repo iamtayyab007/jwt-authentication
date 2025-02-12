@@ -12,9 +12,9 @@ const checkUser = async (req, res, next) => {
           res.json({ status: false });
           next();
         }
-        const user = await User.findById({ decodedToken });
+        const user = await User.findById(decodedToken.id);
         if (user) {
-          res.json({ status: true, user: user, email });
+          res.json({ status: true, user: user.email });
         } else {
           res.json({ status: false });
           next();
